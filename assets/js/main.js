@@ -21,6 +21,7 @@ var SeletorDeCores = (function(){
              }
              
              let corRGBA = 'rgba(255, 0, 0, 1)';
+             let corRGB = 'rgb(255, 0, 0)'
              let corHEX = '#ff0000'
              let hex = false
              let x = 150;
@@ -211,6 +212,7 @@ var SeletorDeCores = (function(){
                        
                        label.style.setProperty('background-color', cor)
                        spanValor.innerText = hex === true ? corHEX : cor
+                       corRGB = cor
                  }
                   
                   mudarCorDoBloco({
@@ -275,7 +277,7 @@ var SeletorDeCores = (function(){
                  })
                  setTimeout(()=>{
                   fundoSeletor.classList.remove('mostrar')
-                  t.aoFechar ? t.aoFechar(hex?corHEX:cor) : null
+                  t.aoFechar ? t.aoFechar(hex?corHEX:corRGB) : null
                  }, 400)
                  
              }
