@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Seletor de cores</title>
+ <title>Seletor de cores</title>
 
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/main.js" ></script>
+ <link rel="stylesheet" href="assets/css/style.css">
+ <script src="assets/js/main.js"></script>
 </head>
 
 <body>
-<script>
-let sl = new SeletorDeCores()
-    sl.abrir()
-    sl.converterParaHEX()
-    sl.aoSelecionar = function(cor){
-       document.body.style.backgroundColor = cor
-    }
-  </script>
+
+ <style>
+  button {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   -webkit-border-radius: 60px;
+   -moz-border-radius: 60px;
+   border-radius: 60px;
+   height: 20px;
+   padding: 20px;
+   background: #1F2BB7;
+   color: #ddd;
+   border: none;
+  }
+ </style>
+
+ <button type="button" id="abrir-seletor">Escolher uma cor</button>
+ <script>
+  let seletor = new SeletorDeCores()
+  seletor.converterParaHEX()
+
+  seletor.aoFechar = function(cor) {
+   document.body.style.background = cor
+  }
+
+  document.getElementById('abrir-seletor')
+   .onclick = () => seletor.abrir()
+ </script>
 </body>
+
 </html>
