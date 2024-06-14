@@ -1,14 +1,14 @@
 # Seletor de cores v 0.03
 
 
-Este é um seletor de cores, feito usando canvas do JavaScript.
+> Este é um seletor de cores, feito usando canvas do JavaScript.
 
 ### Como usar?
 
-> Para chamar o seletor, basta chamar a classe no **JavaScript**, usando o `new SeletorDeCores()`
+ Para chamar o seletor, basta chamar a classe no **JavaScript**, usando o `new SeletorDeCores()`
 
 
-#### Conheça alguns métodos:
+#### Conheça os métodos disponíveis:
 
 | Método | Descrição |
 | --- | --- |
@@ -29,4 +29,8 @@ O código abaixo chama o seletor de cores e muda a cor de fundo da tag `<body>` 
         document.body.style.setProperty('background-color', cor)
      }
  ```
- 
+
+ ### Saída:
+![Imagem](assets/img/demo.jpg)
+
+Faça o download agora e use em seus projetos.
