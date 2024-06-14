@@ -5,8 +5,21 @@ var SeletorDeCores = (function(){
       
       var $ = document.querySelector.bind(document);
       
+      HTMLElement.prototype.on = function(evento, callback){
+               return this.addEventListener(evento, callback)
+              };
+
+      
       class SeletorDeCores{
           constructor(){
+           
+             this.versao = 0.03
+             this.desenvolvedor = 'Andjeckson Tavares Guimarães.'
+             
+             function criarElemento(elm){
+              return document.createElement(elm)
+             }
+             
              let corRGBA = 'rgba(255, 0, 0, 1)';
              let corHEX = '#ff0000'
              let hex = false
@@ -18,45 +31,49 @@ var SeletorDeCores = (function(){
              let t = this
              
              
-             let elmSeletor = document.createElement('div')
+             let fundoSeletor = criarElemento('section')
+                 fundoSeletor.classList.add('fundo-seletor')
+                 
+             let elmSeletor = criarElemento('div')
                  elmSeletor.classList.add('seletor-de-cores')
              
-             let flexbox = document.createElement('div')
+             let flexbox = criarElemento('div')
                  flexbox.classList.add('flexbox')
              
-             let bloco = document.createElement('div')
+             let bloco = criarElemento('div')
                  bloco.classList.add('bloco-de-cores')
                  
-             let canvasBloco = document.createElement('canvas')
+             let canvasBloco = criarElemento('canvas')
              
-             let deslizadorDoBloco = document.createElement('span')
+             let deslizadorDoBloco = criarElemento('span')
                 deslizadorDoBloco.classList.add('deslizador')
              
-             let barraLateral = document.createElement('div')
+             let barraLateral = criarElemento('div')
                  barraLateral.classList.add('barra-lateral')
                  
-             let canvasLateral = document.createElement('canvas')
+             let canvasLateral = criarElemento('canvas')
              
-             let deslizadorLateral = document.createElement('span')
+             let deslizadorLateral = criarElemento('span')
              
                 deslizadorLateral.classList.add('deslizador')
              
-             let section = document.createElement('section')
+             let section = criarElemento('section')
                  section.classList.add('acoes')
              
-             let flexboxItens = document.createElement('div')
+             let flexboxItens = criarElemento('div')
                  flexboxItens.classList.add('flexbox-itens')
                  
-             let label = document.createElement('label')
-             let spanValor = document.createElement('span')
+             let label = criarElemento('label')
+             let spanValor = criarElemento('span')
                  spanValor.innerText = hex === true ? corHEX : corRGBA
              
-             let flexboxBtn = document.createElement('div')
+             let flexboxBtn = criarElemento('div')
                  flexboxBtn.classList.add('flexbox-btn')
              
-             let btnFechar = document.createElement('button')
+             let btnFechar = criarElemento('button')
                  btnFechar.setAttribute('type','button')
-                 btnFechar.innerText = 'Fechar'
+                 btnFechar.innerText = 'OK'
+                 btnFechar.on('click', ()=>{this.fechar()})
                  
                  flexboxItens.appendChild(label)
                  flexboxItens.appendChild(spanValor)
@@ -77,8 +94,8 @@ var SeletorDeCores = (function(){
                  elmSeletor.appendChild(flexbox)
                  elmSeletor.appendChild(section)
                  
-                 
-                 document.body.appendChild(elmSeletor)
+                 fundoSeletor.appendChild(elmSeletor)
+                 document.body.appendChild(fundoSeletor)
                  
                  
                  canvasBloco.width = w
@@ -190,7 +207,7 @@ var SeletorDeCores = (function(){
                        
                        deslizadorDoBloco.style.setProperty('background-color', cor)
                        
-                       t.aoSelecionar ? t.aoSelecionar(hex?corHEX:cor) : null
+                       t.aoAlterar ? t.aoAlterar(hex?corHEX:cor) : null
                        
                        label.style.setProperty('background-color', cor)
                        spanValor.innerText = hex === true ? corHEX : cor
@@ -230,19 +247,37 @@ var SeletorDeCores = (function(){
                    })
                    
                    
-                 barraLateral.addEventListener('touchstart', (evt)=> mudarCor(evt))
+                 barraLateral.on('touchstart', (evt)=> mudarCor(evt))
                  
-                 barraLateral.addEventListener('touchmove', (evt)=> mudarCor(evt))
+                 barraLateral.on('touchmove', (evt)=> mudarCor(evt))
                  
-                 bloco.addEventListener('touchstart', (evt)=> mudarCorDoBloco(evt))
+                 bloco.on('touchstart', (evt)=> mudarCorDoBloco(evt))
                  
-                 bloco.addEventListener('touchstart', (evt)=> mudarCorDoBloco(evt))
+                 bloco.on('touchstart', (evt)=> mudarCorDoBloco(evt))
                  
                  
-                 bloco.addEventListener('touchmove', (evt)=> mudarCorDoBloco(evt))
+                 bloco.on('touchmove', (evt)=> mudarCorDoBloco(evt))
              
              this.abrir = ()=>{
-               elmSeletor.classList.add('mostrar')
+               fundoSeletor.classList.add('mostrar')
+             }
+             
+             this.fechar = ()=>{
+                 elmSeletor.animate([{
+                   opacity: 1,
+                   transform: 'scale(1)'
+                 },{
+                   opacity : 0,
+                   transform: 'scale(0.9)'
+                 }],{
+                    duration: 400,
+                    easing: 'ease-in-out'
+                 })
+                 setTimeout(()=>{
+                  fundoSeletor.classList.remove('mostrar')
+                  t.aoFechar ? t.aoFechar(hex?corHEX:cor) : null
+                 }, 400)
+                 
              }
              
           this.converterParaHEX = ()=>{
@@ -252,6 +287,6 @@ var SeletorDeCores = (function(){
         }
       }
       
+   
       return SeletorDeCores;
 })();
-                   
